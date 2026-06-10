@@ -4,23 +4,9 @@ This repository documents and maintains a safe, batch-based process for cleaning
 
 The first implementation was created for a cloud-backed OneDrive folder. The design is intentionally broader: it can later be adapted for other cloud providers or offline folders. The workflow processes files in small, resumable batches, confirms duplicates by content hash, moves only older confirmed duplicates, and asks for approval before every move step.
 
-## Current Status
+## Status
 
-Duplicate cleanup has been completed for three approved batches:
-
-| Batch | Result | Older duplicates moved | Move errors | Approx. duplicate content moved |
-|---|---:|---:|---:|---:|
-| Batch 1 | Completed and verified | 649 | 0 | 1.111 GB |
-| Batch 2 | Completed and verified | 243 | 0 | 1.885 GB |
-| Batch 3 | Completed and verified | 100 | 0 | 0.435 GB |
-
-Current additional work:
-
-- Batch 3 error retry is resumable.
-- 38 Batch 3 error files were selected for retry.
-- Last saved retry state: 10 processed, 7 hashed, 3 errors, 28 remaining.
-- Batch 4 has been prepared with the new fast-first strategy.
-- Large videos and files over the configured fast-file threshold are deferred to the end.
+This repository is a public, provider-agnostic toolkit and documentation project. It does not track the live status of any specific cleanup job. Project-specific progress should stay in local/private reports.
 
 ## What Was Built
 
@@ -49,7 +35,7 @@ The public version uses generic examples and placeholder paths. Real inventories
 - [Project Page](docs/PROJECT_PAGE.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Workflow](docs/WORKFLOW.md)
-- [Progress Log](docs/PROGRESS_LOG.md)
+- [Roadmap and TODO](docs/ROADMAP.md)
 - [Configuration](docs/CONFIGURATION.md)
 - [Control App](docs/CONTROL_APP.md)
 - [Safety and Privacy](docs/SAFETY_AND_PRIVACY.md)

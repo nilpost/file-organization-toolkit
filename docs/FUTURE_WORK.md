@@ -1,21 +1,20 @@
 # Future Work
 
+This page describes general toolkit direction. It does not track a specific user's current cleanup status.
+
 ## Next Technical Steps
 
-1. Finish Batch 3 error retry.
-2. Merge successful retry hashes into the Batch 3 duplicate review.
-3. Move any retry-confirmed older duplicates after approval.
-4. Hash Batch 4 fast-first manifest.
-5. Continue Batch 5, Batch 6, and later fast-first batches.
-6. Process deferred large media at the end in small groups.
+1. Create a reusable job configuration format.
+2. Add commands for preparing, running, retrying, and summarizing batches.
+3. Add generic report generation that can redact sensitive file paths.
+4. Add a large-media workflow that runs at the end of a cleanup project.
+5. Add a dry-run organization planner.
 
 ## Organization Steps
 
 1. Refresh full inventory after duplicate cleanup.
-2. Build organization proposal by department era:
-   - Department/Role A
-   - Department/Role B
-3. Within each era, classify:
+2. Build organization proposal by time period, role, project, or material type.
+3. Within each major category, classify:
    - internal material
    - external/customer/event material
    - research/reference/source material
