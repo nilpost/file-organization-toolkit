@@ -144,9 +144,78 @@ function Stop-Task {
     }
 }
 
+function Get-ApprovalsAndStepsText {
+    @"
+Approvals and Operating Steps
+
+Approval Gates
+  A1. Start/resume hashing: app verifies scripts, manifest, free space, and process state.
+  A2. Move confirmed older duplicates: requires explicit approval after duplicate review.
+  A3. Retry failed files: user decides retry vs defer.
+  A4. Prepare next batch: safe metadata/report step; no files are moved.
+  A5. Organization moves: require reviewed folder map and explicit approval.
+
+Standard Batch Steps
+  1. Refresh inventory.
+  2. Exclude already handled files and _older_duplicates.
+  3. Preserve package/application/container folders.
+  4. Group same extension and exact byte size.
+  5. Process small/medium non-media first; defer large media.
+  6. Prepare manifest.
+  7. Hash in controlled slices.
+  8. Generate duplicate review from SHA256 matches.
+  9. Request approval before moving older duplicates.
+ 10. Move approved older duplicates into nearby _older_duplicates.
+ 11. Verify destinations, old source paths, and main copies.
+
+Never Automatic
+  - Do not delete files.
+  - Do not move non-duplicates without an approved organization plan.
+  - Do not split package folders, app folders, licenses, metadata, or readme files.
+  - Do not move main/newest duplicate copies.
+  - Do not publish raw inventories, logs, hashes, or sensitive filenames.
+
+Self-Service TODO
+  - Generate Duplicate Review button.
+  - Review Pending Moves screen.
+  - Approve and Move Selected Duplicates button.
+  - Post-move verification screen.
+  - Retry Errors manifest generator.
+  - Merge Retry Results button.
+  - Organization planning screen.
+"@
+}
+
+function Show-ApprovalsAndSteps {
+    $stepsForm = New-Object System.Windows.Forms.Form
+    $stepsForm.Text = 'Approvals and Steps'
+    $stepsForm.Size = New-Object System.Drawing.Size(760, 620)
+    $stepsForm.StartPosition = 'CenterParent'
+    $stepsForm.Font = New-Object System.Drawing.Font('Segoe UI', 10)
+
+    $stepsBox = New-Object System.Windows.Forms.TextBox
+    $stepsBox.Location = New-Object System.Drawing.Point(16, 16)
+    $stepsBox.Size = New-Object System.Drawing.Size(710, 520)
+    $stepsBox.Multiline = $true
+    $stepsBox.ScrollBars = 'Vertical'
+    $stepsBox.ReadOnly = $true
+    $stepsBox.Font = New-Object System.Drawing.Font('Consolas', 10)
+    $stepsBox.Text = Get-ApprovalsAndStepsText
+    $stepsForm.Controls.Add($stepsBox)
+
+    $closeButton = New-Object System.Windows.Forms.Button
+    $closeButton.Text = 'Close'
+    $closeButton.Location = New-Object System.Drawing.Point(16, 552)
+    $closeButton.Size = New-Object System.Drawing.Size(110, 36)
+    $closeButton.Add_Click({ $stepsForm.Close() })
+    $stepsForm.Controls.Add($closeButton)
+
+    [void]$stepsForm.ShowDialog($form)
+}
+
 $form = New-Object System.Windows.Forms.Form
 $form.Text = 'File Organization Toolkit Control'
-$form.Size = New-Object System.Drawing.Size(820, 560)
+$form.Size = New-Object System.Drawing.Size(980, 560)
 $form.StartPosition = 'CenterScreen'
 $form.Font = New-Object System.Drawing.Font('Segoe UI', 10)
 
@@ -159,13 +228,13 @@ $form.Controls.Add($title)
 
 $statusLabel = New-Object System.Windows.Forms.Label
 $statusLabel.Location = New-Object System.Drawing.Point(20, 60)
-$statusLabel.Size = New-Object System.Drawing.Size(760, 30)
+$statusLabel.Size = New-Object System.Drawing.Size(920, 30)
 $statusLabel.Font = New-Object System.Drawing.Font('Segoe UI', 12, [System.Drawing.FontStyle]::Bold)
 $form.Controls.Add($statusLabel)
 
 $details = New-Object System.Windows.Forms.Label
 $details.Location = New-Object System.Drawing.Point(20, 100)
-$details.Size = New-Object System.Drawing.Size(760, 120)
+$details.Size = New-Object System.Drawing.Size(920, 120)
 $details.BorderStyle = 'FixedSingle'
 $details.Padding = New-Object System.Windows.Forms.Padding(10)
 $form.Controls.Add($details)
@@ -177,34 +246,41 @@ $form.Controls.Add($progressLabel)
 
 $progressBar = New-Object System.Windows.Forms.ProgressBar
 $progressBar.Location = New-Object System.Drawing.Point(20, 250)
-$progressBar.Size = New-Object System.Drawing.Size(760, 22)
+$progressBar.Size = New-Object System.Drawing.Size(920, 22)
 $progressBar.Maximum = 100
 $form.Controls.Add($progressBar)
 
 $startButton = New-Object System.Windows.Forms.Button
 $startButton.Text = 'Start / Resume'
 $startButton.Location = New-Object System.Drawing.Point(20, 286)
-$startButton.Size = New-Object System.Drawing.Size(150, 42)
+$startButton.Size = New-Object System.Drawing.Size(135, 42)
 $startButton.Add_Click({ Start-Task; Start-Sleep -Seconds 1; Update-Status })
 $form.Controls.Add($startButton)
 
 $stopButton = New-Object System.Windows.Forms.Button
 $stopButton.Text = 'Stop'
-$stopButton.Location = New-Object System.Drawing.Point(184, 286)
-$stopButton.Size = New-Object System.Drawing.Size(110, 42)
+$stopButton.Location = New-Object System.Drawing.Point(168, 286)
+$stopButton.Size = New-Object System.Drawing.Size(95, 42)
 $stopButton.Add_Click({ Stop-Task; Start-Sleep -Seconds 1; Update-Status })
 $form.Controls.Add($stopButton)
 
 $refreshButton = New-Object System.Windows.Forms.Button
 $refreshButton.Text = 'Refresh'
-$refreshButton.Location = New-Object System.Drawing.Point(308, 286)
-$refreshButton.Size = New-Object System.Drawing.Size(110, 42)
+$refreshButton.Location = New-Object System.Drawing.Point(276, 286)
+$refreshButton.Size = New-Object System.Drawing.Size(95, 42)
 $refreshButton.Add_Click({ Update-Status })
 $form.Controls.Add($refreshButton)
 
+$stepsButton = New-Object System.Windows.Forms.Button
+$stepsButton.Text = 'Approvals && Steps'
+$stepsButton.Location = New-Object System.Drawing.Point(384, 286)
+$stepsButton.Size = New-Object System.Drawing.Size(145, 42)
+$stepsButton.Add_Click({ Show-ApprovalsAndSteps })
+$form.Controls.Add($stepsButton)
+
 $logBox = New-Object System.Windows.Forms.TextBox
 $logBox.Location = New-Object System.Drawing.Point(20, 350)
-$logBox.Size = New-Object System.Drawing.Size(760, 150)
+$logBox.Size = New-Object System.Drawing.Size(920, 150)
 $logBox.Multiline = $true
 $logBox.ScrollBars = 'Vertical'
 $logBox.ReadOnly = $true

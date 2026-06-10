@@ -38,6 +38,7 @@ The public version uses generic examples and placeholder paths. Real inventories
 - [Roadmap and TODO](docs/ROADMAP.md)
 - [Configuration](docs/CONFIGURATION.md)
 - [Control App](docs/CONTROL_APP.md)
+- [Approvals and Steps](docs/APPROVALS_AND_STEPS.md)
 - [Safety and Privacy](docs/SAFETY_AND_PRIVACY.md)
 - [Future Work](docs/FUTURE_WORK.md)
 

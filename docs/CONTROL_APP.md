@@ -24,6 +24,7 @@ The main screen shows:
 - progress bar
 - latest log excerpt
 - buttons for start/resume, stop, refresh, reports, overall progress, and configuration
+- approvals and operating steps
 
 The active task title is detected automatically from the active manifest/output name. For example, a manifest with `batch_4` is shown as Batch 4 Hashing, while a retry manifest is shown as an error retry.
 
@@ -51,6 +52,18 @@ The Overall Progress screen summarizes:
 - remaining duplicate-cleanup tasks
 - later organization tasks
 - preserved safety rules
+
+### Approvals and Steps
+
+The Approvals and Steps screen documents the full operating procedure directly in the executable:
+
+- approval gates
+- standard batch steps
+- checks before starting
+- checks before moving duplicates
+- checks after moving duplicates
+- actions that must never run automatically
+- TODO items to make the app fully self-service
 
 ## Technical Design
 

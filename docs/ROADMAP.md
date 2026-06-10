@@ -30,6 +30,12 @@ This page tracks general toolkit improvements. It intentionally does not include
 - Add export buttons for sanitized reports.
 - Add clearer paused, stopped, completed, and blocked states.
 - Add optional notifications when a long-running batch completes.
+- Implement the full approval workflow in the app:
+  - generate duplicate review
+  - review pending moves
+  - approve and move selected duplicates
+  - verify after move
+  - merge retry results
 
 ## Duplicate Cleanup Improvements
 
