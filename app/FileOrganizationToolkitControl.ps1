@@ -18,7 +18,6 @@ $DefaultConfig = [pscustomobject]@{
     ManifestPath = '<path-to-current-manifest.csv>'
     OutputPath = '<path-to-current-output.csv>'
     LogPath = '<path-to-current-log.log>'
-    ActiveTaskName = 'Current File Organization Task'
     MinFreeGB = 20
     SliceSize = 3
     FileTimeoutSeconds = 1800
@@ -44,6 +43,28 @@ function Load-Config {
 }
 
 $Config = Load-Config
+
+function Get-TaskNameFromPath {
+    param([string]$Path)
+    $leaf = [System.IO.Path]::GetFileNameWithoutExtension($Path)
+    if ($leaf -match 'batch[_-]?(\d+).*retry') {
+        return "Batch $([int]$matches[1]) Error Retry"
+    }
+    if ($leaf -match 'batch[_-]?(\d+)') {
+        return "Batch $([int]$matches[1]) Hashing"
+    }
+    return 'File Organization Task'
+}
+
+function Get-ActiveTaskName {
+    if (-not [string]::IsNullOrWhiteSpace($Config.ManifestPath)) {
+        return Get-TaskNameFromPath $Config.ManifestPath
+    }
+    if (-not [string]::IsNullOrWhiteSpace($Config.OutputPath)) {
+        return Get-TaskNameFromPath $Config.OutputPath
+    }
+    return 'File Organization Task'
+}
 
 function Get-FreeGB {
     [math]::Round((Get-PSDrive -Name C).Free / 1GB, 2)
@@ -130,7 +151,7 @@ $form.StartPosition = 'CenterScreen'
 $form.Font = New-Object System.Drawing.Font('Segoe UI', 10)
 
 $title = New-Object System.Windows.Forms.Label
-$title.Text = $Config.ActiveTaskName
+$title.Text = Get-ActiveTaskName
 $title.Font = New-Object System.Drawing.Font('Segoe UI', 16, [System.Drawing.FontStyle]::Bold)
 $title.Location = New-Object System.Drawing.Point(16, 14)
 $title.Size = New-Object System.Drawing.Size(520, 34)
@@ -191,6 +212,7 @@ $logBox.Font = New-Object System.Drawing.Font('Consolas', 9)
 $form.Controls.Add($logBox)
 
 function Update-Status {
+    $title.Text = Get-ActiveTaskName
     $running = @(Get-RunnerProcesses)
     $counts = Get-Counts
     $free = Get-FreeGB
@@ -214,4 +236,3 @@ $timer.Start()
 
 $form.Add_Shown({ Update-Status })
 [void]$form.ShowDialog()
-

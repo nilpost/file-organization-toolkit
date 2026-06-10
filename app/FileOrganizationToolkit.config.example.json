@@ -5,7 +5,6 @@
   "ManifestPath": "C:\\Path\\To\\current_manifest.csv",
   "OutputPath": "C:\\Path\\To\\current_hashes.csv",
   "LogPath": "C:\\Path\\To\\current_run.log",
-  "ActiveTaskName": "Current File Organization Task",
   "MinFreeGB": 20,
   "SliceSize": 3,
   "FileTimeoutSeconds": 1800,

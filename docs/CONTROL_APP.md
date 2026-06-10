@@ -25,6 +25,8 @@ The main screen shows:
 - latest log excerpt
 - buttons for start/resume, stop, refresh, reports, overall progress, and configuration
 
+The active task title is detected automatically from the active manifest/output name. For example, a manifest with `batch_4` is shown as Batch 4 Hashing, while a retry manifest is shown as an error retry.
+
 ### Configuration
 
 The Configuration screen allows the user to edit safe operating limits without editing scripts:
@@ -37,7 +39,6 @@ The Configuration screen allows the user to edit safe operating limits without e
 - fast batch max files
 - fast-file size threshold
 - next batch name
-- active task display name
 
 ### Overall Progress
 
@@ -85,4 +86,3 @@ Completed rows already written to CSV are preserved.
 ## Public Template Notes
 
 The public repository includes a generic app template under `app/`. The original local implementation used machine-specific paths and is not committed.
-

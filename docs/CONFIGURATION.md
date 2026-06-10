@@ -18,7 +18,6 @@ This file is local and should not be committed if it contains personal paths or 
 | `FastBatchMaxFiles` | 500 | Maximum number of files in a prepared fast-first batch |
 | `MaxFastFileSizeMB` | 100 | Files above this size are deferred |
 | `NextBatchName` | `local_hash_batch_04` | Name prefix for the next prepared batch |
-| `ActiveTaskName` | `Batch 3 Error Retry` | Display name shown at the top of the control app |
 
 ## Recommended Values
 
@@ -26,4 +25,4 @@ This file is local and should not be committed if it contains personal paths or 
 - Keep retry `SliceSize` small for large media.
 - Increase `MaxFastFileSizeMB` only if there is enough disk space.
 - Use a new `NextBatchName` for each future batch.
-- Update `ActiveTaskName` when the current operation changes, for example `Batch 4 Fast Hashing`.
+- The control app detects the active task title from the current manifest/output name.
