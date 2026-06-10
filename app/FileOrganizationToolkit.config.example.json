@@ -1,0 +1,13 @@
+{
+  "BasePath": "C:\\Path\\To\\Toolkit\\WorkFolder",
+  "RunnerScript": "C:\\Path\\To\\Run-FileHashBatch.ps1",
+  "WorkerScript": "C:\\Path\\To\\Invoke-FileHashBatch.ps1",
+  "ManifestPath": "C:\\Path\\To\\current_manifest.csv",
+  "OutputPath": "C:\\Path\\To\\current_hashes.csv",
+  "LogPath": "C:\\Path\\To\\current_run.log",
+  "ActiveTaskName": "Current File Organization Task",
+  "MinFreeGB": 20,
+  "SliceSize": 3,
+  "FileTimeoutSeconds": 1800,
+  "MaxHours": 168
+}

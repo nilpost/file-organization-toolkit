@@ -1,0 +1,16 @@
+# Local OneDrive scan outputs can contain sensitive filenames.
+onedrive_scan/
+*.csv
+*.log
+*.tmp
+*.bak
+
+# Local configuration may contain personal paths.
+OneDriveBatchControl.config.json
+
+# Windows/editor noise.
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+
