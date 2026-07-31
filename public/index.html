@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>File Organization Toolkit</title>
+    <meta
+      name="description"
+      content="A safe, batch-based process for cleaning and organizing large file collections without needing all content available locally at once."
+    />
+    <style>
+      :root {
+        --bg: #f7f8fa;
+        --surface: #fff;
+        --border: #e3e6ea;
+        --text: #14171c;
+        --dim: #666e7a;
+        --accent: #2f6feb;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f1115;
+          --surface: #171a20;
+          --border: #2a2e37;
+          --text: #e7e9ee;
+          --dim: #98a0ad;
+          --accent: #5b8dfb;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 64px 24px 80px; }
+      h1 { font-size: 30px; letter-spacing: -0.02em; margin: 0 0 8px; }
+      .lede { color: var(--dim); font-size: 17px; margin: 0 0 36px; }
+      h2 {
+        font-size: 13px; text-transform: uppercase; letter-spacing: 0.07em;
+        color: var(--dim); margin: 40px 0 14px;
+      }
+      ul { padding-left: 20px; margin: 0; }
+      li { margin-bottom: 7px; }
+      .rules { list-style: none; padding: 0; }
+      .rules li {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 9px; padding: 11px 15px; margin-bottom: 8px; font-size: 15px;
+      }
+      .docs { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 9px; }
+      .docs a {
+        display: block; padding: 11px 14px; background: var(--surface);
+        border: 1px solid var(--border); border-radius: 9px;
+        text-decoration: none; color: var(--text); font-size: 14px;
+      }
+      .docs a:hover { border-color: var(--accent); }
+      .cta { margin-top: 40px; }
+      .cta a {
+        display: inline-block; padding: 11px 22px; background: var(--accent);
+        color: #fff; border-radius: 9px; text-decoration: none; font-weight: 550;
+      }
+      footer {
+        margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--border);
+        color: var(--dim); font-size: 13px;
+      }
+      footer a { color: var(--dim); }
+      code {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 5px; padding: 1px 6px; font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>File Organization Toolkit</h1>
+      <p class="lede">
+        A safe, batch-based process for cleaning and organizing large file collections —
+        without needing every file available locally at once.
+      </p>
+
+      <p>
+        Built first for a cloud-backed OneDrive folder, but designed to be provider-agnostic.
+        Work happens in small, resumable batches: duplicates are confirmed by content hash,
+        only older confirmed copies are moved, and every move step asks for approval first.
+      </p>
+
+      <h2>Safety rules</h2>
+      <ul class="rules">
+        <li><strong>Never delete files.</strong> Older duplicates are moved, not removed.</li>
+        <li>Confirm duplicates by <strong>content hash</strong>, never by filename.</li>
+        <li>Keep the newest copy where it already lives.</li>
+        <li>Move older confirmed duplicates into nearby <code>_older_duplicates</code> folders.</li>
+        <li>Preserve app-managed folders (Attachments, Teams, OneNote, and similar).</li>
+        <li>Never split CAD, application, license, or package folders.</li>
+        <li>When in doubt, treat the folder as one indivisible package.</li>
+      </ul>
+
+      <h2>Documentation</h2>
+      <div class="docs">
+        <a href="https://github.com/nilpost/file-organization-toolkit/blob/main/docs/ARCHITECTURE.md">Architecture</a>
+        <a href="https://github.com/nilpost/file-organization-toolkit/blob/main/docs/WORKFLOW.md">Workflow</a>
+        <a href="https://github.com/nilpost/file-organization-toolkit/blob/main/docs/CONTROL_APP.md">Control app</a>
+        <a href="https://github.com/nilpost/file-organization-toolkit/blob/main/docs/CONFIGURATION.md">Configuration</a>
+        <a href="https://github.com/nilpost/file-organization-toolkit/blob/main/docs/APPROVALS_AND_STEPS.md">Approvals &amp; steps</a>
+        <a href="https://github.com/nilpost/file-organization-toolkit/blob/main/docs/SAFETY_AND_PRIVACY.md">Safety &amp; privacy</a>
+        <a href="https://github.com/nilpost/file-organization-toolkit/blob/main/docs/ROADMAP.md">Roadmap</a>
+        <a href="https://github.com/nilpost/file-organization-toolkit/blob/main/docs/FUTURE_WORK.md">Future work</a>
+      </div>
+
+      <p class="cta">
+        <a href="https://github.com/nilpost/file-organization-toolkit">Get it on GitHub →</a>
+      </p>
+
+      <footer>
+        This is a Windows PowerShell toolkit, not a web application — this page is
+        documentation only. Real inventories, logs and local configuration are
+        deliberately excluded from the public repository.
+        <br />
+        <a href="https://app.postiusgroup.com">← Postius Control Hub</a>
+      </footer>
+    </div>
+  </body>
+</html>
